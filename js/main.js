@@ -86,13 +86,35 @@ function conversorMoneda() {
 
       break;
     case 3:
+      let resultadoEUR;
+
       const montoEURO = parseFloat(prompt("Ingresa el monto (EUR)"));
+      if (isNaN(montoEURO)) {
+        alert("Monto Invalido!, ingresa un número válido.");
+        return;
+      }
 
       const euroAmoneda = parseInt(
         prompt(
           "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. ARS"
         )
       );
+
+      if (euroAmoneda != 1 && euroAmoneda != 2) {
+        alert("Opcion Invalida!");
+      } else if (euroAmoneda === 1) {
+        resultadoEUR = montoEURO * euroaUSD;
+        alert(
+          `${montoEURO} euros equivalen a ${resultadoEUR.toFixed(2)} dolares`
+        );
+      } else {
+        resultadoEUR = montoEURO * euroaARS;
+        alert(
+          `${montoEURO} euros equivalen a ${resultadoEUR.toFixed(
+            2
+          )} pesos argentinos`
+        );
+      }
 
       break;
     case 4:

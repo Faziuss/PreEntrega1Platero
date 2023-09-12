@@ -27,14 +27,13 @@ function conversorMoneda() {
   switch (entrada) {
     case 1:
       let resultadoUSD;
-      let usdAmoneda;
 
       const montoUSD = parseFloat(prompt("Ingresa el monto (USD)"));
       if (isNaN(montoUSD)) {
         alert("Monto Invalido!, ingresa un número válido.");
         return;
       }
-      usdAmoneda = parseInt(
+      const usdAmoneda = parseInt(
         prompt(
           "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. ARS\n2. EURO"
         )
@@ -54,13 +53,36 @@ function conversorMoneda() {
 
       break;
     case 2:
-      const montoARS = parseFloat(prompt("Ingresa el monto (ARS)"));
+      let resultadoARS;
 
+      const montoARS = parseFloat(prompt("Ingresa el monto (ARS)"));
+      if (isNaN(montoARS)) {
+        alert("Monto Invalido!, ingresa un número válido.");
+        return;
+      }
       const arsAmoneda = parseInt(
         prompt(
           "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. EURO"
         )
       );
+
+      if (arsAmoneda != 1 && arsAmoneda != 2) {
+        alert("Opcion Invalida!");
+      } else if (arsAmoneda === 1) {
+        resultadoARS = montoARS * arsaUSD;
+        alert(
+          `${montoARS} pesos argentinos equivalen a ${resultadoARS.toFixed(
+            2
+          )} dolares`
+        );
+      } else {
+        resultadoARS = montoARS * arsaEURO;
+        alert(
+          `${montoARS} pesos argentinos equivalen a ${resultadoARS.toFixed(
+            2
+          )} euros`
+        );
+      }
 
       break;
     case 3:

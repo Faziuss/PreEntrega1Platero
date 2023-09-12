@@ -1,3 +1,10 @@
+const usdaARS = 349.96;
+const usdaEURO = 0.93;
+const arsaUSD = 0.0029;
+const arsaEURO = 0.0027;
+const euroaUSD = 1.07;
+const euroaARS = 375.85;
+
 let ejecutar = true;
 
 function conversorMoneda() {

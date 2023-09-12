@@ -8,11 +8,11 @@ const euroaARS = 375.85;
 let ejecutar = true;
 
 function conversorMoneda() {
-    if(!ejecutar){
-        return;
-    }
+  if (!ejecutar) {
+    return;
+  }
 
-  let entrada = parseInt(
+  const entrada = parseInt(
     prompt(
       "CONVERSOR DE MONEDAS: Elige una moneda (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. EURO\n4. SALIR"
     )
@@ -26,32 +26,56 @@ function conversorMoneda() {
 
   switch (entrada) {
     case 1:
-        let usdAmoneda = parseInt(
-            prompt(
-              "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. ARS\n2. EURO\n3. SALIR"
-            )
-          );
-        
+      let resultadoUSD;
+      let usdAmoneda;
+
+      const montoUSD = parseFloat(prompt("Ingresa el monto (USD)"));
+      if (isNaN(montoUSD)) {
+        alert("Monto Invalido!, ingresa un número válido.");
+        return;
+      }
+      usdAmoneda = parseInt(
+        prompt(
+          "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. ARS\n2. EURO"
+        )
+      );
+
+      if (usdAmoneda != 1 && usdAmoneda != 2) {
+        alert("Opcion Invalida!");
+      } else if (usdAmoneda === 1) {
+        resultadoUSD = montoUSD * usdaARS;
+        alert(
+          `${montoUSD} dolares equivalen a ${resultadoUSD} pesos argentinos`
+        );
+      } else {
+        resultadoUSD = montoUSD * usdaEURO;
+        alert(`${montoUSD} dolares equivalen a ${resultadoUSD} euros`);
+      }
+
       break;
     case 2:
-        let arsAmoneda = parseInt(
-            prompt(
-              "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. EURO\n3. SALIR"
-            )
-          );
-        
+      const montoARS = parseFloat(prompt("Ingresa el monto (ARS)"));
+
+      const arsAmoneda = parseInt(
+        prompt(
+          "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. EURO"
+        )
+      );
+
       break;
     case 3:
-        let euroAmoneda = parseInt(
-            prompt(
-              "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. SALIR"
-            )
-          );
-        
+      const montoEURO = parseFloat(prompt("Ingresa el monto (EUR)"));
+
+      const euroAmoneda = parseInt(
+        prompt(
+          "CONVERSOR DE MONEDAS: Elige la moneda a convertir (Ingresa con los respectivos numeros)\n1. USD\n2. ARS"
+        )
+      );
+
       break;
     case 4:
-    ejecutar = false;
-    return;
+      ejecutar = false;
+      return;
 
     default:
       alert("Opcion invalida!");

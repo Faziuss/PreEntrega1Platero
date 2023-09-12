@@ -1,4 +1,10 @@
+let ejecutar = true;
+
 function conversorMoneda() {
+    if(!ejecutar){
+        return;
+    }
+
   let entrada = parseInt(
     prompt(
       "CONVERSOR DE MONEDAS: Elige una moneda (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. EURO\n4. SALIR"
@@ -19,7 +25,8 @@ function conversorMoneda() {
     case 3:
       break;
     case 4:
-      break;
+    ejecutar = false;
+    return;
 
     default:
       alert("Opcion invalida!");

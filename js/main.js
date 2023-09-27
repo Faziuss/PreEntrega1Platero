@@ -1,9 +1,31 @@
-const usdaARS = 349.96;
-const usdaEURO = 0.93;
-const arsaUSD = 0.0029;
-const arsaEURO = 0.0027;
-const euroaUSD = 1.07;
-const euroaARS = 375.85;
+const usdToArs = 349.96;
+const usdToEuro = 0.93;
+const arsToUsd = 0.0029;
+const arsToEuro = 0.0027;
+const euroToUsd = 1.07;
+const euroToArs = 375.85;
+
+const monedas = [
+  {
+    name: "USD",
+    rate: {
+      ARS: 349.96, EURO: 0.0027
+    }
+  },
+  {
+    name: "ARS",
+    rate: {
+      USD: 0.0029, EURO: 0.0027
+    }
+  },
+  {
+    name: "EURO",
+    rate: {
+      USD: 1.07, ARS: 375.85
+    }
+  }
+]
+
 
 let ejecutar = true;
 
@@ -42,12 +64,12 @@ function conversorMoneda() {
       if (usdAmoneda != 1 && usdAmoneda != 2) {
         alert("Opcion Invalida!");
       } else if (usdAmoneda === 1) {
-        resultadoUSD = montoUSD * usdaARS;
+        resultadoUSD = montoUSD * usdToArs;
         alert(
           `${montoUSD} dolares equivalen a ${resultadoUSD} pesos argentinos`
         );
       } else {
-        resultadoUSD = montoUSD * usdaEURO;
+        resultadoUSD = montoUSD * usdToEuro;
         alert(`${montoUSD} dolares equivalen a ${resultadoUSD} euros`);
       }
 
@@ -69,14 +91,14 @@ function conversorMoneda() {
       if (arsAmoneda != 1 && arsAmoneda != 2) {
         alert("Opcion Invalida!");
       } else if (arsAmoneda === 1) {
-        resultadoARS = montoARS * arsaUSD;
+        resultadoARS = montoARS * arsToUsd;
         alert(
           `${montoARS} pesos argentinos equivalen a ${resultadoARS.toFixed(
             2
           )} dolares`
         );
       } else {
-        resultadoARS = montoARS * arsaEURO;
+        resultadoARS = montoARS * arsToEuro;
         alert(
           `${montoARS} pesos argentinos equivalen a ${resultadoARS.toFixed(
             2
@@ -103,12 +125,12 @@ function conversorMoneda() {
       if (euroAmoneda != 1 && euroAmoneda != 2) {
         alert("Opcion Invalida!");
       } else if (euroAmoneda === 1) {
-        resultadoEUR = montoEURO * euroaUSD;
+        resultadoEUR = montoEuro * euroToUsd;
         alert(
           `${montoEURO} euros equivalen a ${resultadoEUR.toFixed(2)} dolares`
         );
       } else {
-        resultadoEUR = montoEURO * euroaARS;
+        resultadoEUR = montoEURO * euroToArs;
         alert(
           `${montoEURO} euros equivalen a ${resultadoEUR.toFixed(
             2

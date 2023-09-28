@@ -1,9 +1,9 @@
-const usdToArs = 349.96;
+/* const usdToArs = 349.96;
 const usdToEuro = 0.93;
 const arsToUsd = 0.0029;
 const arsToEuro = 0.0027;
 const euroToUsd = 1.07;
-const euroToArs = 375.85;
+const euroToArs = 375.85; */
 
 const monedas = [
   {
@@ -30,17 +30,30 @@ let ejecutar = true;
 
 while(ejecutar){
 
-  const textoPrompt = "CONVERSOR DE MONEDAS: Elige una moneda (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. EURO\n4. SALIR"
-
+  const textoPrompt = "Elige una opcion (Ingresa con los respectivos numeros)\n1. Convertir Monedas\n2. Agregar Moneda\n3. SALIR"
   const entrada = parseInt(prompt(textoPrompt))
 
   if (entrada === null || entrada === "") {
-    alert("Moneda invalida, elige una moneda valida.");
-    moneda1();
+    alert("Opcion invalida, elige una opcion valida.");
     continue;
   }
 
-  switch (entrada) {
+  switch(entrada) {
+    case 1:
+      convertirMoneda()
+      break;
+    case 2:
+      agregarMoneda()
+      break;
+    case 3:
+      alert("Saliendo...")
+      ejecutar = false;
+      break;
+    default:
+    alert("Opcion invalida, elige una opcion valida.")
+  }
+
+  /* switch (entrada) {
     case 1:
       let resultadoUSD;
 
@@ -140,5 +153,5 @@ while(ejecutar){
     default:
       alert("Opcion invalida!");
       break;
-  }
+  } */
 }

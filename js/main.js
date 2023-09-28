@@ -26,24 +26,18 @@ const monedas = [
   }
 ]
 
-
 let ejecutar = true;
 
-function conversorMoneda() {
-  if (!ejecutar) {
-    return;
-  }
+while(ejecutar){
 
-  const entrada = parseInt(
-    prompt(
-      "CONVERSOR DE MONEDAS: Elige una moneda (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. EURO\n4. SALIR"
-    )
-  );
+  const textoPrompt = "CONVERSOR DE MONEDAS: Elige una moneda (Ingresa con los respectivos numeros)\n1. USD\n2. ARS\n3. EURO\n4. SALIR"
+
+  const entrada = parseInt(prompt(textoPrompt))
 
   if (entrada === null || entrada === "") {
     alert("Moneda invalida, elige una moneda valida.");
     moneda1();
-    return;
+    continue;
   }
 
   switch (entrada) {
@@ -53,7 +47,7 @@ function conversorMoneda() {
       const montoUSD = parseFloat(prompt("Ingresa el monto (USD)"));
       if (isNaN(montoUSD)) {
         alert("Monto Invalido!, ingresa un número válido.");
-        return;
+        break;
       }
       const usdAmoneda = parseInt(
         prompt(
@@ -80,7 +74,7 @@ function conversorMoneda() {
       const montoARS = parseFloat(prompt("Ingresa el monto (ARS)"));
       if (isNaN(montoARS)) {
         alert("Monto Invalido!, ingresa un número válido.");
-        return;
+        break;
       }
       const arsAmoneda = parseInt(
         prompt(
@@ -113,7 +107,7 @@ function conversorMoneda() {
       const montoEURO = parseFloat(prompt("Ingresa el monto (EUR)"));
       if (isNaN(montoEURO)) {
         alert("Monto Invalido!, ingresa un número válido.");
-        return;
+        break;
       }
 
       const euroAmoneda = parseInt(
@@ -141,14 +135,10 @@ function conversorMoneda() {
       break;
     case 4:
       ejecutar = false;
-      return;
+      break;
 
     default:
       alert("Opcion invalida!");
       break;
   }
-
-  conversorMoneda();
 }
-
-conversorMoneda();

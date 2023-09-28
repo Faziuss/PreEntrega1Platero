@@ -9,48 +9,102 @@ const monedas = [
   {
     name: "USD",
     rate: {
-      ARS: 349.96, EURO: 0.0027
-    }
+      ARS: 349.96,
+      EURO: 0.0027,
+    },
   },
   {
     name: "ARS",
     rate: {
-      USD: 0.0029, EURO: 0.0027
-    }
+      USD: 0.0029,
+      EURO: 0.0027,
+    },
   },
   {
     name: "EURO",
     rate: {
-      USD: 1.07, ARS: 375.85
-    }
-  }
-]
+      USD: 1.07,
+      ARS: 375.85,
+    },
+  },
+];
 
 let ejecutar = true;
 
-while(ejecutar){
+function convertirMoneda() {
+  const promptMonedaOrigen =
+    "Elige una moneda (Ingresa con los respectivos numeros)\n" + listaMonedas();
+  const monedaOrigen = parseInt(prompt(promptMonedaOrigen));
+  const origen = monedas.find((moneda, index) => index + 1 === monedaOrigen);
+  if (!origen) {
+    alert("Moneda invalida");
+    convertirMoneda();
+  }
+  const monedas2 = monedas.filter((moneda, index) => index + 1 != monedaOrigen);
+  const promptMonedaDestino =
+    "Elige a que moneda convertir (Ingresa con los respectivos numeros)\n" +
+    listaMonedas2(monedas2);
+  const monedaDestino = parseInt(prompt(promptMonedaDestino));
+  const destino = monedas2.find((moneda, index) => index + 1 === monedaDestino);
+  console.log("destino", destino);
+  if (!destino) {
+    alert("Moneda invalida");
+    convertirMoneda();
+  }
+  const promptMonto = "Ingresa un monto";
+  const monto = parseFloat(prompt(promptMonto));
+  if (isNaN(monto) || monto < 0) {
+    alert("Monto Invalido");
+    convertirMoneda();
+  }
+  console.log("origen.rate", origen.rate);
+  console.log("destino.name", destino.name);
+  const tasa = origen.rate[destino.name];
+  console.log("tasa", tasa);
 
-  const textoPrompt = "Elige una opcion (Ingresa con los respectivos numeros)\n1. Convertir Monedas\n2. Agregar Moneda\n3. SALIR"
-  const entrada = parseInt(prompt(textoPrompt))
+  const resultado = monto * tasa;
+  alert(
+    `${monto} ${origen.name} equivalen a ${resultado.toFixed(2)} ${
+      destino.name
+    }.`
+  );
+
+  function listaMonedas() {
+    return monedas
+      .map((moneda, index) => `${index + 1}. ${moneda.name}`)
+      .join("\n");
+  }
+
+  function listaMonedas2(monedas2) {
+    return monedas2
+      .map((moneda, index) => `${index + 1}. ${moneda.name}`)
+      .join("\n");
+  }
+}
+
+while (ejecutar) {
+  const textoPrompt =
+    "Elige una opcion (Ingresa con los respectivos numeros)\n1. Convertir Monedas\n2. Agregar Moneda\n3. SALIR";
+  const entrada = parseInt(prompt(textoPrompt));
 
   if (entrada === null || entrada === "") {
     alert("Opcion invalida, elige una opcion valida.");
     continue;
   }
 
-  switch(entrada) {
+  switch (entrada) {
     case 1:
-      convertirMoneda()
+      convertirMoneda();
       break;
     case 2:
-      agregarMoneda()
+      agregarMoneda();
       break;
     case 3:
-      alert("Saliendo...")
+      alert("Saliendo...");
       ejecutar = false;
       break;
     default:
-    alert("Opcion invalida, elige una opcion valida.")
+      alert("Opcion invalida, elige una opcion valida.");
   }
 
   /* switch (entrada) {

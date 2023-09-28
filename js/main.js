@@ -32,14 +32,16 @@ const monedas = [
 let ejecutar = true;
 
 function convertirMoneda() {
+  console.log("OBJETO MONEDAS",monedas);
   const promptMonedaOrigen =
     "Elige una moneda (Ingresa con los respectivos numeros)\n" + listaMonedas();
   const monedaOrigen = parseInt(prompt(promptMonedaOrigen));
   const origen = monedas.find((moneda, index) => index + 1 === monedaOrigen);
   if (!origen) {
     alert("Moneda invalida");
-    convertirMoneda();
+    return;
   }
+  console.log("origen", origen);
   const monedas2 = monedas.filter((moneda, index) => index + 1 != monedaOrigen);
   const promptMonedaDestino =
     "Elige a que moneda convertir (Ingresa con los respectivos numeros)\n" +
@@ -49,13 +51,13 @@ function convertirMoneda() {
   console.log("destino", destino);
   if (!destino) {
     alert("Moneda invalida");
-    convertirMoneda();
+    return;
   }
   const promptMonto = "Ingresa un monto";
   const monto = parseFloat(prompt(promptMonto));
   if (isNaN(monto) || monto < 0) {
     alert("Monto Invalido");
-    convertirMoneda();
+    return;
   }
   console.log("origen.rate", origen.rate);
   console.log("destino.name", destino.name);
@@ -99,14 +101,18 @@ function agregarMoneda(){
       return;
     }
     tasas[moneda.name] = tasa;
+    //console.log("FOR EACH MONEDA EN QUE MONEDA ESTOY", moneda);
+    moneda.rate[nameMoneda] = 1 / tasa
+    //console.log("FOR EACH MONEDA 2", moneda.rate[nameMoneda]);
+    //console.log("TEST TASAS",tasas);
   });
 
-  console.log("tasas nueva moneda", tasas)
+  //console.log("tasas nueva moneda", tasas)
 
   const nuevaMoneda = { name: nameMoneda, rate: tasas };
   monedas.push(nuevaMoneda);
 
-  console.log("objeto neuva moneda",nuevaMoneda)
+  //console.log("objeto nueva moneda",nuevaMoneda)
 
   alert(`${nameMoneda} ha sido agregada con éxito.`);
 }

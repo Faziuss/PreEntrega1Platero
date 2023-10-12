@@ -1,3 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800&display=swap");
+.desktop-navbar {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  margin-top: 1rem;
+}
+.desktop-navbar ul {
+  background-color: rgba(0, 0, 0, 0.658);
+  border: 2px solid rgb(252, 252, 252);
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+}
+.desktop-navbar ul li {
+  list-style-type: none;
+  padding: 1rem;
+}
+.desktop-navbar ul li a {
+  text-decoration: none;
+  color: white;
+}
 
+* {
+  font-family: "Inter";
+}
 
 /*# sourceMappingURL=styles.css.map */

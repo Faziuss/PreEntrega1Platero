@@ -1,17 +1,31 @@
-const $input1 = document.getElementById("input-1")
-const $input2 = document.getElementById("input-2")
-const $select1 = document.getElementById("select-1")
-const $select2 = document.getElementById("select-2")
+const $input1 = document.getElementById("input1")
+const $input2 = document.getElementById("input2")
+const $select1 = document.getElementById("select1")
+const $select2 = document.getElementById("select2")
 
-const monedas = [
+// 
+const data = [
     {name: "USD", rate: {ARS: 349.96, EURO: 0.0027}},
     {name: "ARS", rate: {USD:1/349.96, EURO: 0.0027}},
     {name: "EURO", rate: {ARS: 375.85, USD: 1.07}}
 ]
 
+//
+let currencies = JSON.parse(localStorage.getItem('currencies')) || []
+
+//
+const main = () => {
+  if(!currencies.length){
+    localStorage.setItem("currencies", JSON.stringify(data))
+    currencies = data
+  }
+}
+
+main()
+
 const updateFirstInput = (newValue) => {
     const currency2 = $select2.value
-    const moneda = monedas.find((moneda)=>{return moneda.name === currency2})
+    const moneda = currencies.find((moneda)=>{return moneda.name === currency2})
     const currency1 = $select1.value
 
     if(currency1===currency2){
@@ -23,7 +37,7 @@ const updateFirstInput = (newValue) => {
 
 const updateSecondInput = (newValue) => {
     const currency1 = $select1.value
-    const moneda = monedas.find((moneda)=>{return moneda.name === currency1})
+    const moneda = currencies.find((moneda)=>{return moneda.name === currency1})
     const currency2 = $select2.value
 
     if(currency1===currency2){
@@ -48,6 +62,50 @@ $select1.addEventListener("change", () => {
 $select2.addEventListener("change", () => {
     updateSecondInput($input2.value)
 })
+
+function generateCurrencyTable() {
+  const currencyTableDiv = document.getElementById('currencyTable');
+  const table = document.createElement('table');
+  table.classList.add('currency-table');
+
+  const tableHeader = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  const headerName = document.createElement('th');
+  headerName.textContent = "Moneda";
+  headerRow.appendChild(headerName);
+
+  for (const currency of currencies) {
+      const headerRate = document.createElement('th');
+      headerRate.textContent = currency.name;
+      headerRow.appendChild(headerRate);
+  }
+
+  tableHeader.appendChild(headerRow);
+  table.appendChild(tableHeader);
+
+  const tableBody = document.createElement('tbody');
+
+  for (const currency of currencies) {
+      const row = document.createElement('tr');
+      const currencyNameCell = document.createElement('td');
+      currencyNameCell.textContent = currency.name;
+      row.appendChild(currencyNameCell);
+
+      for (const otherCurrency of currencies) {
+          const rateCell = document.createElement('td');
+          rateCell.textContent = currency.rate[otherCurrency.name];
+          row.appendChild(rateCell);
+      }
+
+      tableBody.appendChild(row);
+  }
+
+  table.appendChild(tableBody);
+  currencyTableDiv.innerHTML = ''; 
+  currencyTableDiv.appendChild(table);
+}
+
+document.addEventListener("DOMContentLoaded", generateCurrencyTable);
 
 
 

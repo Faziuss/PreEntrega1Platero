@@ -25,4 +25,19 @@
   font-family: "Inter";
 }
 
+.currency-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.currency-table th, .currency-table td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+.currency-table th {
+  background-color: #f2f2f2;
+}
+
 /*# sourceMappingURL=styles.css.map */

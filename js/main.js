@@ -24,27 +24,44 @@ const monedas = [
 
 let ejecutar = true;
 
+function listaMonedas() {
+  return monedas
+    .map((moneda, index) => `${index + 1}. ${moneda.name}`)
+    .join("\n");
+}
+
+function listaMonedas2(monedas2) {
+  return monedas2
+    .map((moneda, index) => `${index + 1}. ${moneda.name}`)
+    .join("\n");
+}
+
 function convertirMoneda() {
-  const promptMonedaOrigen =
-    "Elige una moneda (Ingresa con los respectivos numeros)\n" + listaMonedas();
-  const monedaOrigen = parseInt(prompt(promptMonedaOrigen));
+  const promptMonedaOrigen = prompt(
+    "Elige una moneda (Ingresa con los respectivos numeros)\n" + listaMonedas()
+  );
+  const monedaOrigen = parseInt(promptMonedaOrigen);
   const origen = monedas.find((moneda, index) => index + 1 === monedaOrigen);
+
   if (!origen) {
     alert("Moneda invalida");
     return;
   }
+
   const monedas2 = monedas.filter((moneda, index) => index + 1 != monedaOrigen);
-  const promptMonedaDestino =
+  const promptMonedaDestino = prompt(
     "Elige a que moneda convertir (Ingresa con los respectivos numeros)\n" +
-    listaMonedas2(monedas2);
-  const monedaDestino = parseInt(prompt(promptMonedaDestino));
+      listaMonedas2(monedas2)
+  );
+  const monedaDestino = parseInt(promptMonedaDestino);
   const destino = monedas2.find((moneda, index) => index + 1 === monedaDestino);
+
   if (!destino) {
     alert("Moneda invalida");
     return;
   }
-  const promptMonto = "Ingresa un monto";
-  const monto = parseFloat(prompt(promptMonto));
+  const promptMonto = prompt("Ingresa un monto");
+  const monto = parseFloat(promptMonto);
   if (isNaN(monto) || monto < 0) {
     alert("Monto Invalido");
     return;
@@ -57,18 +74,6 @@ function convertirMoneda() {
       destino.name
     }.`
   );
-
-  function listaMonedas() {
-    return monedas
-      .map((moneda, index) => `${index + 1}. ${moneda.name}`)
-      .join("\n");
-  }
-
-  function listaMonedas2(monedas2) {
-    return monedas2
-      .map((moneda, index) => `${index + 1}. ${moneda.name}`)
-      .join("\n");
-  }
 }
 
 function agregarMoneda() {
@@ -82,15 +87,16 @@ function agregarMoneda() {
   const tasas = {};
 
   monedas.forEach((moneda) => {
-    const tasa = parseFloat(
-      prompt(`Ingresa la tasa de conversión de ${nameMoneda} a ${moneda.name}:`)
+    const tasa = prompt(
+      `Ingresa la tasa de conversión de ${nameMoneda} a ${moneda.name}:`
     );
-    if (isNaN(tasa)) {
+    const parsedTasa = parseFloat(tasa);
+    if (isNaN(parsedTasa)) {
       alert("Error, Ingresa un numero valido");
       return;
     }
-    tasas[moneda.name] = tasa;
-    moneda.rate[nameMoneda] = 1 / tasa;
+    tasas[moneda.name] = parsedTasa;
+    moneda.rate[nameMoneda] = 1 / parsedTasa;
   });
 
   const nuevaMoneda = { name: nameMoneda, rate: tasas };
@@ -100,9 +106,10 @@ function agregarMoneda() {
 }
 
 while (ejecutar) {
-  const textoPrompt =
-    "Elige una opcion (Ingresa con los respectivos numeros)\n1. Convertir Monedas\n2. Agregar Moneda\n3. SALIR";
-  const entrada = parseInt(prompt(textoPrompt));
+  const textoPrompt = prompt(
+    "Elige una opcion (Ingresa con los respectivos numeros)\n1. Convertir Monedas\n2. Agregar Moneda\n3. SALIR"
+  );
+  const entrada = parseInt(textoPrompt);
 
   if (entrada === null || entrada === "") {
     alert("Opcion invalida, elige una opcion valida.");

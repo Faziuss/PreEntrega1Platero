@@ -1,28 +1,57 @@
-const monedas = [
-  {
-    name: "USD",
-    rate: {
-      ARS: 349.96,
-      EURO: 0.0027,
-    },
-  },
-  {
-    name: "ARS",
-    rate: {
-      USD: 0.0029,
-      EURO: 0.0027,
-    },
-  },
-  {
-    name: "EURO",
-    rate: {
-      USD: 1.07,
-      ARS: 375.85,
-    },
-  },
-];
+const $input1 = document.getElementById("input-1")
+const $input2 = document.getElementById("input-2")
+const $select1 = document.getElementById("select-1")
+const $select2 = document.getElementById("select-2")
 
-let ejecutar = true;
+const monedas = [
+    {name: "USD", rate: {ARS: 349.96, EURO: 0.0027}},
+    {name: "ARS", rate: {USD:1/349.96, EURO: 0.0027}},
+    {name: "EURO", rate: {ARS: 375.85, USD: 1.07}}
+]
+
+const updateFirstInput = (newValue) => {
+    const currency2 = $select2.value
+    const moneda = monedas.find((moneda)=>{return moneda.name === currency2})
+    const currency1 = $select1.value
+
+    if(currency1===currency2){
+        $input1.value = newValue
+    } else {
+        $input1.value = newValue * moneda.rate[currency1]
+    }
+}
+
+const updateSecondInput = (newValue) => {
+    const currency1 = $select1.value
+    const moneda = monedas.find((moneda)=>{return moneda.name === currency1})
+    const currency2 = $select2.value
+
+    if(currency1===currency2){
+        $input2.value = newValue
+    } else {
+        $input2.value = newValue * moneda.rate[currency2]
+    }
+}
+
+$input1.addEventListener("input", (e)=>{
+    updateSecondInput(e.target.value)
+})
+
+$input2.addEventListener("input", (e)=>{
+    updateFirstInput(e.target.value)
+})
+
+$select1.addEventListener("change", () => {
+    updateSecondInput($input1.value)
+})
+
+$select2.addEventListener("change", () => {
+    updateSecondInput($input2.value)
+})
+
+
+
+/* let ejecutar = true;
 
 function listaMonedas() {
   return monedas
@@ -130,4 +159,4 @@ while (ejecutar) {
     default:
       alert("Opcion invalida, elige una opcion valida.");
   }
-}
+} */

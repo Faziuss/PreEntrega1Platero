@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
+    <script src="js/main.js" defer></script>
     <title>Conversor de Monedas</title>
 </head>
 
@@ -13,24 +14,28 @@
     <div id="container">
         <input type="number" id="input1">
         <select name="" id="select1">
-            <option value="ARS">ARS</option>
-            <option value="EURO">EURO</option>
-            <option value="USD">USD</option>
+
         </select>
         <input type="number" id="input2">
         <select name="" id="select2">
-            <option value="ARS">ARS</option>
-            <option value="EURO">EURO</option>
-            <option value="USD">USD</option>
+
         </select>
     </div>
     <h2>Monedas</h2>
     <div id="currencyTable"></div>
-    <div id="addCurrency">
-        <button>Agregar Moneda</button>
+    <button id="openModal">Agregar Moneda</button>
+    <div id="modal" class="modal">
+        <span class="close" id="closeModal">&times;</span>
+            <h2>Agregar Nueva Moneda</h2>
+            <form id="modalForm">
+                <label for="name">Nombre De La Moneda:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <h3>Tasas:</h3>
+                <div id="ratesContainer"></div>
+                <input type="submit" value="Agregar">
+            </form>
     </div>
 
-    <script src="js/main.js"></script>
 </body>
 
 </html>

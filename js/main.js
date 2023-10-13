@@ -3,17 +3,14 @@ const $input2 = document.getElementById("input2");
 const $select1 = document.getElementById("select1");
 const $select2 = document.getElementById("select2");
 
-//
 const data = [
   { name: "USD", rate: { ARS: 349.96, EURO: 0.0027 } },
   { name: "ARS", rate: { USD: 1 / 349.96, EURO: 0.0027 } },
   { name: "EURO", rate: { ARS: 375.85, USD: 1.07 } },
 ];
 
-//
 let currencies = JSON.parse(localStorage.getItem("currencies")) || [];
 
-//
 const main = () => {
   if (!currencies.length) {
     localStorage.setItem("currencies", JSON.stringify(data));
@@ -69,12 +66,12 @@ $select2.addEventListener("change", () => {
 
 function loadSelects() {
   for (const currency of currencies) {
-    const $newOption = document.createElement("option")
-    $newOption.value = currency.name
-    $newOption.textContent = currency.name
-    const $clonedOption = $newOption.cloneNode(true)
-    $select1.appendChild($newOption)
-    $select2.appendChild($clonedOption)
+    const $newOption = document.createElement("option");
+    $newOption.value = currency.name;
+    $newOption.textContent = currency.name;
+    const $clonedOption = $newOption.cloneNode(true);
+    $select1.appendChild($newOption);
+    $select2.appendChild($clonedOption);
   }
 }
 
@@ -121,9 +118,9 @@ function generateCurrencyTable() {
   currencyTableDiv.appendChild(table);
 }
 
-document.addEventListener("DOMContentLoaded", ()=>{
-  generateCurrencyTable()
-  loadSelects()
+document.addEventListener("DOMContentLoaded", () => {
+  generateCurrencyTable();
+  loadSelects();
 });
 
 const $openModal = document.getElementById("openModal");
@@ -154,6 +151,17 @@ function addRateInput(currencyName) {
   $ratesContainer.appendChild(rateInput);
 }
 
+function insertOption(newCurrency) {
+  const $newOption = document.createElement("option");
+  $newOption.value = newCurrency.name;
+  $newOption.textContent = newCurrency.name;
+
+  const $clonedOption = $newOption.cloneNode(true);
+
+  $select1.appendChild($newOption);
+  $select2.appendChild($clonedOption);
+}
+
 $modalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const newCurrency = { name: "", rate: {} };
@@ -166,46 +174,38 @@ $modalForm.addEventListener("submit", (e) => {
     currencies[index].rate[newCurrency.name] = 1 / value;
   });
 
-  const $newOption = document.createElement("option");
-  $newOption.value = newCurrency.name;
-  $newOption.textContent = newCurrency.name;
-
-  const $clonedOption = $newOption.cloneNode(true);
-
-  $select1.appendChild($newOption);
-  $select2.appendChild($clonedOption);
+  insertOption(newCurrency);
 
   const column = document.createElement("th");
   column.textContent = newCurrency.name;
   const $headerRow = document.querySelector("thead tr");
   $headerRow.appendChild(column);
 
-  
   currencies.forEach((c) => {
-      const data = document.createElement("td");
-      data.textContent = c.rate[newCurrency.name];
-      const $row = document.querySelector(`#row${c.name}`);
-      $row.appendChild(data);
+    const data = document.createElement("td");
+    data.textContent = c.rate[newCurrency.name];
+    const $row = document.querySelector(`#row${c.name}`);
+    $row.appendChild(data);
   });
 
   currencies.push(newCurrency);
 
-  const $tbody = document.querySelector("tbody")
-  const $newBodyRow = document.createElement("tr")
-  const $tdName = document.createElement("td")
-  $tdName.textContent = newCurrency.name
-  $newBodyRow.appendChild($tdName)
+  const $tbody = document.querySelector("tbody");
+  const $newBodyRow = document.createElement("tr");
+  const $tdName = document.createElement("td");
+  $tdName.textContent = newCurrency.name;
+  $newBodyRow.appendChild($tdName);
 
   for (const currency of currencies) {
-    if(!currency.name !==newCurrency.name){
-      const $td = document.createElement("td")
-      $td.textContent = newCurrency.rate[currency.name]
-      $newBodyRow.appendChild($td)
+    if (!currency.name !== newCurrency.name) {
+      const $td = document.createElement("td");
+      $td.textContent = newCurrency.rate[currency.name];
+      $newBodyRow.appendChild($td);
     }
   }
 
-  $tbody.appendChild($newBodyRow)
-  
+  $tbody.appendChild($newBodyRow);
+
   localStorage.setItem("currencies", JSON.stringify(currencies));
   $modal.style.display = "none";
 });

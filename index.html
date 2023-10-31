@@ -25,13 +25,14 @@
     <h2>Monedas</h2>
     <div id="currencyTable"></div>
     <button id="openModal">Agregar Moneda</button>
-    <div id="modal" class="modal">
-        <span class="close" id="closeModal">&times;</span>
+    <div class="modal-container">
+        <div id="modal" class="modal">
+            <span class="close" id="closeModal">&times;</span>
             <h2>Agregar Nueva Moneda</h2>
             <form id="modalForm">
                 <label for="name">Nombre De La Moneda:</label>
                 <input type="text" id="name" name="name" required><br><br>
-                <h3>Tasas:</h3>
+                <h3>Tasas</h3>
                 <div id="ratesContainer">
                     <template id="ratesTemplate">
                         <label></label>
@@ -40,6 +41,7 @@
                 </div>
                 <input type="submit" value="Agregar">
             </form>
+        </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>

@@ -4,6 +4,7 @@ const $select1 = document.getElementById("select1");
 const $select2 = document.getElementById("select2");
 const $openModal = document.getElementById("openModal");
 const $modal = document.getElementById("modal");
+const $modalContainer = document.querySelector(".modal-container")
 const $closeModal = document.getElementById("closeModal");
 const $modalForm = document.getElementById("modalForm");
 const $ratesContainer = document.getElementById("ratesContainer");
@@ -139,11 +140,11 @@ function generateCurrencyTable() {
 }
 
 $openModal.addEventListener("click", () => {
-  $modal.style.display = "block";
+  $modalContainer.style.display = "block";
 });
 
 $closeModal.addEventListener("click", () => {
-  $modal.style.display = "none";
+  $modalContainer.style.display = "none";
 });
 
 function addRateInput(currencyName) {
@@ -227,7 +228,7 @@ $modalForm.addEventListener("submit", (e) => {
   $tbody.appendChild($newBodyRow);
 
   localStorage.setItem("currencies", JSON.stringify(currencies));
-  $modal.style.display = "none";
+  $modalContainer.style.display = "none";
   resetForm()
 
   Toastify({

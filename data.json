@@ -1,0 +1,7 @@
+{ 
+    "products": [
+    { "name": "USD", "rate": { "ARS": 349.96, "EURO": 0.0027 } },
+    { "name": "ARS", "rate": { "USD": 0.0028, "EURO": 0.0027 } },
+    { "name": "EURO", "rate": { "ARS": 375.85, "USD": 1.07 } }
+  ]
+}

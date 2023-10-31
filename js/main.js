@@ -3,22 +3,25 @@ const $input2 = document.getElementById("input2");
 const $select1 = document.getElementById("select1");
 const $select2 = document.getElementById("select2");
 
-const data = [
-  { name: "USD", rate: { ARS: 349.96, EURO: 0.0027 } },
-  { name: "ARS", rate: { USD: 1 / 349.96, EURO: 0.0027 } },
-  { name: "EURO", rate: { ARS: 375.85, USD: 1.07 } },
-];
-
 let currencies = JSON.parse(localStorage.getItem("currencies")) || [];
 
-const main = () => {
+const main = async () => {
   if (!currencies.length) {
-    localStorage.setItem("currencies", JSON.stringify(data));
-    currencies = data;
+    try {
+      const res = await fetch("../data.json");
+      const data = await res.json();
+      currencies = data.products;
+    } catch (error) {
+      console.log(error);
+    }
   }
+  generateCurrencyTable();
+  loadSelects();
 };
 
-main();
+document.addEventListener("DOMContentLoaded", () => {
+  main();
+});
 
 const updateFirstInput = (newValue) => {
   const currency2 = $select2.value;
@@ -117,11 +120,6 @@ function generateCurrencyTable() {
   currencyTableDiv.innerHTML = "";
   currencyTableDiv.appendChild(table);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  generateCurrencyTable();
-  loadSelects();
-});
 
 const $openModal = document.getElementById("openModal");
 const $modal = document.getElementById("modal");

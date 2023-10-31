@@ -2,6 +2,12 @@ const $input1 = document.getElementById("input1");
 const $input2 = document.getElementById("input2");
 const $select1 = document.getElementById("select1");
 const $select2 = document.getElementById("select2");
+const $openModal = document.getElementById("openModal");
+const $modal = document.getElementById("modal");
+const $closeModal = document.getElementById("closeModal");
+const $modalForm = document.getElementById("modalForm");
+const $ratesContainer = document.getElementById("ratesContainer");
+const $formInputName = document.getElementById("name")
 
 let currencies = JSON.parse(localStorage.getItem("currencies")) || [];
 
@@ -74,6 +80,10 @@ $select2.addEventListener("change", () => {
   updateSecondInput($input2.value);
 });
 
+$formInputName.addEventListener("input", (e) => {
+  $formInputName.value = e.target.value.trim()  
+})
+
 function loadSelects() {
   for (const currency of currencies) {
     const $newOption = document.createElement("option");
@@ -127,12 +137,6 @@ function generateCurrencyTable() {
   currencyTableDiv.innerHTML = "";
   currencyTableDiv.appendChild(table);
 }
-
-const $openModal = document.getElementById("openModal");
-const $modal = document.getElementById("modal");
-const $closeModal = document.getElementById("closeModal");
-const $modalForm = document.getElementById("modalForm");
-const $ratesContainer = document.getElementById("ratesContainer");
 
 $openModal.addEventListener("click", () => {
   $modal.style.display = "block";
@@ -225,4 +229,12 @@ $modalForm.addEventListener("submit", (e) => {
   localStorage.setItem("currencies", JSON.stringify(currencies));
   $modal.style.display = "none";
   resetForm()
+
+  Toastify({
+
+    text: "Moneda Agregada con Exito",
+    
+    duration: 3000
+    
+    }).showToast();
 });

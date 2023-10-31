@@ -31,7 +31,12 @@
                 <label for="name">Nombre De La Moneda:</label>
                 <input type="text" id="name" name="name" required><br><br>
                 <h3>Tasas:</h3>
-                <div id="ratesContainer"></div>
+                <div id="ratesContainer">
+                    <template id="ratesTemplate">
+                        <label></label>
+                        <input type="number" required>
+                    </template>
+                </div>
                 <input type="submit" value="Agregar">
             </form>
     </div>

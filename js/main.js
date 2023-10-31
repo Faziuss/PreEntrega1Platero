@@ -17,7 +17,14 @@ const main = async () => {
   }
   generateCurrencyTable();
   loadSelects();
+  loadRatesInputs()
 };
+
+const loadRatesInputs = () => {
+  currencies.forEach((currency) => {
+    addRateInput(currency.name);
+  });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   main();
@@ -129,9 +136,6 @@ const $ratesContainer = document.getElementById("ratesContainer");
 
 $openModal.addEventListener("click", () => {
   $modal.style.display = "block";
-  currencies.forEach((currency) => {
-    addRateInput(currency.name);
-  });
 });
 
 $closeModal.addEventListener("click", () => {
@@ -139,14 +143,13 @@ $closeModal.addEventListener("click", () => {
 });
 
 function addRateInput(currencyName) {
-  const rateLabel = document.createElement("label");
-  rateLabel.textContent = currencyName + ":";
-  const rateInput = document.createElement("input");
-  rateInput.type = "number";
-  rateInput.name = currencyName;
-  rateInput.id = currencyName;
-  $ratesContainer.appendChild(rateLabel);
-  $ratesContainer.appendChild(rateInput);
+  const $fragment = document.createDocumentFragment()
+  const $template = document.getElementById("ratesTemplate").content
+  $template.querySelector("label").textContent = currencyName
+  $template.querySelector("input").name = currencyName
+  const $clone = document.importNode($template, true)
+  $fragment.appendChild($clone)
+  $ratesContainer.appendChild($fragment)
 }
 
 function insertOption(newCurrency) {
@@ -160,11 +163,23 @@ function insertOption(newCurrency) {
   $select2.appendChild($clonedOption);
 }
 
+const resetForm = () => {
+  const $inputs = $modal.getElementsByTagName("input")
+  for (const $input of $inputs) {
+    // clears every input value except for inputs of type submit
+    if($input.type !== "submit"){
+      $input.value = "";
+    }
+  }
+}
+
 $modalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const newCurrency = { name: "", rate: {} };
+
   const currencyName = document.getElementById("name").value;
   newCurrency.name = currencyName.toUpperCase();
+
   const inputElements = $ratesContainer.querySelectorAll("input");
   inputElements.forEach((input, index) => {
     const value = Number(input.value);
@@ -173,6 +188,7 @@ $modalForm.addEventListener("submit", (e) => {
   });
 
   insertOption(newCurrency);
+  addRateInput(currencyName)
 
   const column = document.createElement("th");
   column.textContent = newCurrency.name;
@@ -182,6 +198,7 @@ $modalForm.addEventListener("submit", (e) => {
   currencies.forEach((c) => {
     const data = document.createElement("td");
     data.textContent = c.rate[newCurrency.name];
+    console.log("c.name is ", c.name);
     const $row = document.querySelector(`#row${c.name}`);
     $row.appendChild(data);
   });
@@ -190,6 +207,7 @@ $modalForm.addEventListener("submit", (e) => {
 
   const $tbody = document.querySelector("tbody");
   const $newBodyRow = document.createElement("tr");
+  $newBodyRow.id = `row${newCurrency.name}`
   const $tdName = document.createElement("td");
   $tdName.textContent = newCurrency.name;
   $newBodyRow.appendChild($tdName);
@@ -206,4 +224,5 @@ $modalForm.addEventListener("submit", (e) => {
 
   localStorage.setItem("currencies", JSON.stringify(currencies));
   $modal.style.display = "none";
+  resetForm()
 });
